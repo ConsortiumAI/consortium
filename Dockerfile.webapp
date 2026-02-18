@@ -1,0 +1,24 @@
+FROM node:20-slim AS builder
+
+WORKDIR /app
+COPY package.json yarn.lock ./
+COPY packages/consortium-web/package.json packages/consortium-web/
+RUN yarn install --frozen-lockfile --production=false
+
+COPY packages/consortium-web/ packages/consortium-web/
+RUN cd packages/consortium-web && npx vite build
+
+FROM nginx:alpine
+COPY --from=builder /app/packages/consortium-web/dist /usr/share/nginx/html
+
+# SPA routing: serve index.html for all routes
+RUN echo 'server { \
+    listen 80; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

@@ -1,0 +1,85 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Account {
+    id        String   @id @default(cuid())
+    publicKey String   @unique
+    seq       Int      @default(0)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Session            Session[]
+    Machine            Machine[]
+    AccountAuthRequest AccountAuthRequest[]
+}
+
+model Session {
+    id                String           @id @default(cuid())
+    tag               String
+    accountId         String
+    account           Account          @relation(fields: [accountId], references: [id])
+    metadata          String
+    metadataVersion   Int              @default(0)
+    agentState        String?
+    agentStateVersion Int              @default(0)
+    dataEncryptionKey Bytes?
+    seq               Int              @default(0)
+    active            Boolean          @default(true)
+    lastActiveAt      DateTime         @default(now())
+    createdAt         DateTime         @default(now())
+    updatedAt         DateTime         @updatedAt
+    messages          SessionMessage[]
+
+    @@unique([accountId, tag])
+    @@index([accountId, updatedAt(sort: Desc)])
+}
+
+model SessionMessage {
+    id        String   @id @default(cuid())
+    sessionId String
+    session   Session  @relation(fields: [sessionId], references: [id])
+    localId   String?
+    seq       Int
+    /// [SessionMessageContent]
+    content   Json
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([sessionId, localId])
+    @@index([sessionId, seq])
+}
+
+model Machine {
+    id                 String   @id
+    accountId          String
+    account            Account  @relation(fields: [accountId], references: [id])
+    metadata           String
+    metadataVersion    Int      @default(0)
+    daemonState        String?
+    daemonStateVersion Int      @default(0)
+    dataEncryptionKey  Bytes?
+    seq                Int      @default(0)
+    active             Boolean  @default(true)
+    lastActiveAt       DateTime @default(now())
+    createdAt          DateTime @default(now())
+    updatedAt          DateTime @updatedAt
+
+    @@unique([accountId, id])
+    @@index([accountId])
+}
+
+model AccountAuthRequest {
+    id                String   @id @default(cuid())
+    publicKey         String   @unique
+    response          String?
+    responseAccountId String?
+    responseAccount   Account? @relation(fields: [responseAccountId], references: [id])
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+}

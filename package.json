@@ -1,0 +1,12 @@
+{
+    "name": "consortium-relay",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "packages/consortium-server",
+            "packages/consortium-cli",
+            "packages/consortium-web"
+        ]
+    },
+    "packageManager": "yarn@1.22.22"
+}
