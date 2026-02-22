@@ -1,5 +1,5 @@
 /**
- * Claude Code SDK integration for relay CLI
+ * Claude process management for relay CLI
  */
 
 export { query } from './query'

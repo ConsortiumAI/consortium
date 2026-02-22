@@ -409,11 +409,11 @@ consortium-relay/
 │   │       ├── storage/       Database client and helpers
 │   │       └── utils/         Logging, shutdown, crypto utilities
 │   │
-│   ├── consortium-cli/             CLI agent (Claude Code SDK, E2EE)
+│   ├── consortium-cli/             CLI agent (Claude process management, E2EE)
 │   │   ├── bin/               CLI entry point
 │   │   └── src/
 │   │       ├── api/           Server communication and encryption
-│   │       ├── claude/        Claude Code SDK integration
+│   │       ├── claude/        Claude process management
 │   │       ├── modules/       RPC command handlers
 │   │       ├── ui/            Authentication and logging
 │   │       └── utils/         Async utilities, message queuing

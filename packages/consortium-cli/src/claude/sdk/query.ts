@@ -1,5 +1,5 @@
 /**
- * Main query implementation for Claude Code SDK
+ * Main query implementation for Claude process management
  * Handles spawning Claude process and managing message streams
  */
 
@@ -212,7 +212,7 @@ export function query(config: {
     } = config
 
     if (!process.env.CLAUDE_CODE_ENTRYPOINT) {
-        process.env.CLAUDE_CODE_ENTRYPOINT = 'sdk-ts'
+        process.env.CLAUDE_CODE_ENTRYPOINT = 'consortium-relay'
     }
 
     const args = ['--output-format', 'stream-json', '--verbose']

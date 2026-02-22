@@ -54,7 +54,7 @@ export function Login() {
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.logo}>consortium</div>
-        <div style={styles.subtitle}>E2EE Claude Code Relay</div>
+        <div style={styles.subtitle}>E2EE AI Coding Relay</div>
 
         {error && <div style={styles.error}>{error}</div>}
 

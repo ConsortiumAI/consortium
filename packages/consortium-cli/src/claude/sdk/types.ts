@@ -1,5 +1,5 @@
 /**
- * Type definitions for Claude Code SDK integration
+ * Type definitions for Claude process management
  */
 
 export interface SDKMessage {

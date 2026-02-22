@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Relay CLI - E2EE Claude Code relay
+ * Relay CLI - E2EE remote coding relay
  *
  * Stripped entry point: authenticate, then run Claude in remote-only mode.
  * No subcommands, no daemon, no local mode.
@@ -25,7 +25,7 @@ async function main() {
             permissionMode = args[++i];
         } else if (args[i] === '--help' || args[i] === '-h') {
             console.log(`
-consortium-cli - E2EE Claude Code Relay
+consortium-cli - Encrypted Remote AI Coding Relay
 
 Usage: consortium-cli [options]
 

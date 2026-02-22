@@ -1,5 +1,5 @@
 /**
- * Utility functions for Claude Code SDK integration
+ * Utility functions for Claude process management
  */
 
 import { join } from 'node:path'
